@@ -2,7 +2,7 @@
 10 * * * * find /var/local/pypi -name "lovely.memcached" -o -name "eea.faceted.inheritance" -prune -o -type f -name "index.html" -exe rm -f {} \;
 
 # Update PyPi index.html without certificate
-20 * * * * wget --no-check-certificate -O /var/local/pypi/index.html http://pypi.python.org/simple && chown 1000:1000 /var/local/ypi/index.html
+20 * * * * wget --no-check-certificate -O /var/local/pypi/index.html http://pypi.python.org/simple && chown 1000:1000 /var/local/pypi/index.html
 
 # delete all directories under /var/local/pypi, older than 45 days, weekly
 30 23 * * 0 find /var/local/pypi/ -name "lovely.memcached" -o -name "wkhtmltopdf" -o -name "libevent" -prune -o -type d -exec echo {}\;
