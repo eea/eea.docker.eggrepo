@@ -1,0 +1,24 @@
+apache:
+  build: apache
+  links:
+   - eggrepo
+  ports:
+   - "80:80"
+  volumes_from:
+   - data
+
+eggrepo:
+  build: eggrepo
+  volumes_from:
+   - data
+
+pypimirror:
+  build: pypimirror
+  volumes_from:
+   - data
+
+data:
+  build: data
+  volumes:
+   - /var/local/eggrepo/files
+   - /var/local/pypi
