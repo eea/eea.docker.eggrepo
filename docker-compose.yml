@@ -20,5 +20,5 @@ pypimirror:
 data:
   build: data
   volumes:
-   - /var/local/eggrepo/files
+   - /var/local/eggrepo
    - /var/local/pypi
