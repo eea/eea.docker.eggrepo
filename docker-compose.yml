@@ -1,18 +1,21 @@
 apache:
+  restart: on-failure:5
   build: apache
   links:
    - eggrepo
   ports:
-   - "80:80"
+   - "8200:80"
   volumes_from:
    - data
 
 eggrepo:
+  restart: on-failure:5
   build: eggrepo
   volumes_from:
    - data
 
 pypimirror:
+  restart: on-failure:5
   build: pypimirror
   volumes_from:
    - data
