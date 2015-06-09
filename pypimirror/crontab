@@ -1,5 +1,5 @@
 # delete index.html files from /var/local/pypi hourly
-10 * * * * find /var/local/pypi -name "lovely.memcached" -o -name "eea.faceted.inheritance" -prune -o -type f -name "index.html" -exe rm -f {} \;
+10 * * * * find /var/local/pypi -name "lovely.memcached" -o -name "eea.faceted.inheritance" -prune -o -type f -name "index.html" -exec rm -f {} \;
 
 # Update PyPi index.html without certificate
 20 * * * * wget --no-check-certificate -O /var/local/pypi/index.html http://pypi.python.org/simple && chown 1000:1000 /var/local/pypi/index.html
