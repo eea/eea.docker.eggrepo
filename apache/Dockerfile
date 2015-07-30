@@ -1,4 +1,4 @@
-FROM eeacms/httpd:centos6
+FROM eeacms/apache:2.2
 
 MAINTAINER "Vitalie Maldur" <vitalie.maldur@eaudeweb.ro>
 
