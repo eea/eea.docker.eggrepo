@@ -1,6 +1,6 @@
 apache:
+  image: eeacms/eggrepo-apache
   restart: on-failure:5
-  build: apache
   links:
    - eggrepo
   ports:
@@ -9,14 +9,14 @@ apache:
    - data
 
 eggrepo:
+  image: eeacms/eggrepo
   restart: on-failure:5
-  build: eggrepo
   volumes_from:
    - data
 
 pypimirror:
+  image: eeacms/pypimirror
   restart: on-failure:5
-  build: pypimirror
   volumes_from:
    - data
 
