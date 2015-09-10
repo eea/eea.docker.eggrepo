@@ -1,6 +1,6 @@
 apache:
   image: eeacms/eggrepo-apache
-  restart: on-failure:5
+  restart: always
   links:
    - eggrepo
   ports:
@@ -10,13 +10,13 @@ apache:
 
 eggrepo:
   image: eeacms/eggrepo
-  restart: on-failure:5
+  restart: always
   volumes_from:
    - data
 
 pypimirror:
   image: eeacms/pypimirror
-  restart: on-failure:5
+  restart: always
   volumes_from:
    - data
 
