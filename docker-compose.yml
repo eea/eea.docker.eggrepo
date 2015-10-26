@@ -1,5 +1,5 @@
 apache:
-  image: eeacms/eggrepo-apache
+  image: docker.io/eeacms/eggrepo-apache
   restart: always
   links:
    - eggrepo
@@ -9,13 +9,13 @@ apache:
    - data
 
 eggrepo:
-  image: eeacms/eggrepo
+  image: docker.io/eeacms/eggrepo
   restart: always
   volumes_from:
    - data
 
 pypimirror:
-  image: eeacms/pypimirror
+  image: docker.io/eeacms/pypimirror
   restart: always
   volumes_from:
    - data
