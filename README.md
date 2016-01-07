@@ -1,10 +1,8 @@
 ## EEA Eggrepo docker setup
 
-Docker images for EEA Eggrepo, including images for **Apache**, **ClueReleaseManager**, **Pypi Mirror** and a 
-dedicated data container.
+Docker "orchestration" for EEA Eggrepo, including images for **Apache** and **Pypi Mirror**.
 
-You can find base images for **Apache Server** [here](https://registry.hub.docker.com/u/eeacms/httpd/) and for 
-**ClueReleaseManager** [here](https://registry.hub.docker.com/u/eeacms/cluereleasemanager/).
+You can find the base image for **Apache Server** [here](https://hub.docker.com/r/eeacms/apache/).
 
 ### Installation
 1. Install [Docker](https://www.docker.com/).
@@ -39,7 +37,7 @@ Exemple of the result:
 After creation of eggrepo-data folder execute:
 
     $ docker-compose up data
-    $ docker run -it --rm --volumes-from eeadockereggrepo_data_1 -v \ 
+    $ docker run -it --rm --volumes-from eeadockereggrepo_eggrepo_data_1 -v \
       /path/to/eggrepo-data:/mnt debian /bin/bash -c "cp -R /mnt/* /var/local/eggrepo"
 
 ### Data migration
@@ -67,5 +65,5 @@ There are some files that you should include in data container and provide acces
 After creation of eggrepo-data folder execute:
 
     $ docker-compose up data
-    $ docker run -it --rm --volumes-from eeadockereggrepo_data_1 -v \ 
+    $ docker run -it --rm --volumes-from eeadockereggrepo_pypimirror_data_1 -v \
       /path/to/pypi_data:/mnt debian /bin/bash -c "cp -R /mnt/* /var/local/pypi"    
