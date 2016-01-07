@@ -1,5 +1,7 @@
 ## EEA Eggrepo docker setup
 
+**NOTE: DEPRECATED - use eea.docker.cluereleasemanager instead**
+
 Docker "orchestration" for EEA Eggrepo, including images for **Apache** and **Pypi Mirror**.
 
 You can find the base image for **Apache Server** [here](https://hub.docker.com/r/eeacms/apache/).
