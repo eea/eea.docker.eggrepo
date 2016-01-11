@@ -1,22 +1,16 @@
-FROM eeacms/apache:2.2
+FROM httpd:2.4
+MAINTAINER "Alin Voinea" <alin.voinea@eaudeweb.ro>
 
-MAINTAINER "Vitalie Maldur" <vitalie.maldur@eaudeweb.ro>
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends libaprutil1-ldap \
+    && rm -r /var/lib/apt/lists/*
 
-#install dependencies
-RUN yum -y makecache; yum clean all
-RUN yum -y install gcc httpd-devel git python-devel flex tar python-setuptools mod_authz_ldap; yum clean all
+RUN echo "Include conf/extra/virtual.conf" >> /usr/local/apache2/conf/httpd.conf
 
-RUN git clone https://github.com/grisha/mod_python.git && \
-    cd mod_python/ && ./configure --with-python=/usr/bin/python  && make && make install
+RUN sed -i 's|#LoadModule authnz_ldap_module|LoadModule authnz_ldap_module|' /usr/local/apache2/conf/httpd.conf
+RUN sed -i 's|#LoadModule ldap_module|LoadModule ldap_module|' /usr/local/apache2/conf/httpd.conf
+RUN sed -i 's|#LoadModule rewrite_module|LoadModule rewrite_module|' /usr/local/apache2/conf/httpd.conf
+RUN sed -i 's|#LoadModule proxy_module|LoadModule proxy_module|' /usr/local/apache2/conf/httpd.conf
+RUN sed -i 's|#LoadModule proxy_http_module|LoadModule proxy_http_module|' /usr/local/apache2/conf/httpd.conf
 
-RUN git clone https://github.com/eea/collective.eggproxy.git && \
-    cd collective.eggproxy && python setup.py install
-
-ADD eggproxy.conf /etc/eggproxy.conf
-
-# clean up
-RUN rm -rf mod_python/ && rm -rf collective.eggproxy
-
-# configuration
-ADD vh.conf /etc/httpd/conf.d/vh-eggrepo.conf
-ADD python_module.conf /etc/httpd/conf.d/pyrhon_module.conf
+ADD vh.conf /usr/local/apache2/conf/extra/virtual.conf

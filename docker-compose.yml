@@ -1,37 +1,21 @@
 apache:
-  image: docker.io/eeacms/eggrepo-apache
+  image: eeacms/eggrepo-apache
   restart: always
   links:
-   - eggrepo
+  - eggrepo
   ports:
-   - "8200:80"
-  volumes_from:
-   - pypimirror_data
+  - "80:80"
 
 eggrepo:
-  image: docker.io/eeacms/cluereleasemanager
+  image: eeacms/cluereleasemanager
   restart: always
   volumes_from:
-   - eggrepo_data
+   - data
 
-pypimirror:
-  image: docker.io/eeacms/pypimirror
-  restart: always
-  volumes_from:
-   - pypimirror_data
-
-eggrepo_data:
+data:
   image: busybox
   tty: true
   stdin_open: true
   volumes:
    - /var/local/eggrepo
   command: ["chown", "-v", "-R", "500:500", "/var/local/eggrepo"]
-
-pypimirror_data:
-  image: busybox
-  tty: true
-  stdin_open: true
-  volumes:
-   - /var/local/pypi
-  command: ["chown", "-v", "-R", "1000:1000", "/var/local/pypi"]
