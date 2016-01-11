@@ -4,7 +4,7 @@ apache:
   links:
   - eggrepo
   ports:
-  - "80:80"
+  - "8200:80"
 
 eggrepo:
   image: eeacms/cluereleasemanager
