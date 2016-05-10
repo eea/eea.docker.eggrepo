@@ -41,6 +41,7 @@ After creation of eggrepo-data folder execute:
       /path/to/eggrepo-data:/mnt debian /bin/bash -c "cp -R /mnt/* /var/local/eggrepo"
 
 ### Data migration
+
 You can access production data on [EEA Eggrepo](http://eggrepo.eea.europa.eu). **cluerelmgr.db** is located at:
 
     /var/local/eggrepo/cluerelmgr.db
@@ -48,3 +49,25 @@ You can access production data on [EEA Eggrepo](http://eggrepo.eea.europa.eu). *
 **Eggs folder** is located at:
 
     /var/local/eggrepo/files
+
+Thus:
+
+1. Start **rsync client** on host where do you want to migrate eggrepo data (DESTINATION HOST):
+
+  ```
+    $  docker run -it --rm --name=r-client --volumes-from=eeadockereggrepo_data_1 eeacms/rsync sh
+  ```
+
+2. Start **rsync server** on host from where do you want to migrate eggrepo data (SOURCE HOST):
+
+  ```
+    $ docker run -it --rm --name=r-server -p 2222:22 --volumes-from=eeadockereggrepo_data_1 \
+                 -e SSH_AUTH_KEY="<SSH-KEY-FROM-R-CLIENT-ABOVE>" \
+             eeacms/rsync server
+  ```
+
+3. Within **rsync client** container from step 1 run:
+
+  ```
+    $ rsync -e 'ssh -p 2222' -avz root@<SOURCE HOST IP>:/var/local/eggrepo/ /var/local/eggrepo/
+  ```
